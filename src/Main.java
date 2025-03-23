@@ -24,5 +24,17 @@ public class Main {
         historicoUsuario1.adicionarNomeLivroNoHistorico("1984");
 
         historicoUsuario1.mostrarHistorico();
+
+        FilaDeEmprestimo filaDeEmprestimos = new FilaDeEmprestimo();
+
+        filaDeEmprestimos.mostrarReservas("1984");
+        filaDeEmprestimos.adicionarUsuario("Eduardo", "1984");
+        filaDeEmprestimos.adicionarUsuario("Maria", "Pride and Prejudice");
+        filaDeEmprestimos.adicionarUsuario("Paulo", "1984");
+        filaDeEmprestimos.adicionarUsuario("Pedro", "1984");
+        filaDeEmprestimos.adicionarUsuario("Ana", "Pride and Prejudice");
+        filaDeEmprestimos.mostrarReservas("1984");
+        filaDeEmprestimos.mostrarReservas("Pride and Prejudice");
+        filaDeEmprestimos.mostrarReservas("O Senhor dos Anéis: ");
     }
 }

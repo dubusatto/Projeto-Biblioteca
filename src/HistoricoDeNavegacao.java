@@ -19,7 +19,7 @@ public class HistoricoDeNavegacao {
             System.out.println("O histórico de navegação está vazio.");
             return;
         }
-        System.out.println("Histórico de navegação (LIFO):");
+        System.out.println("\nHistórico de navegação :");
         // Percorrendo a pilha do topo para a base
         for (int i = nomesLivros.size() - 1; i >= 0; i--) {
             System.out.println(nomesLivros.get(i));
