@@ -35,7 +35,6 @@ class Biblioteca {
             Livro novoLivro = new Livro(titulo, autor, anoPublicacao);
             livros.add(novoLivro);
             System.out.println("Livro adicionado com sucesso: " + novoLivro);
-            System.out.println(this);  // Imprime a biblioteca atualizada
         }
     }
 
@@ -61,15 +60,53 @@ class Biblioteca {
         }
     }
 
-    public String buscarLivro (String titulo) {
+    public Livro buscarLivro (String titulo) {
         for (Livro livro : livros) {
-            if (livro.getTitulo().equals(titulo)) { // Caso encontre o livro, irá mostrar as informações
+            if (livro.getTitulo().equalsIgnoreCase(titulo)) { // Caso encontre o livro, irá mostrar as informações
                 System.out.println(livro);
-                return livro.toString(); // Retorna as informações do livro
+                return livro; // Retorna as informações do livro
             }
         }
         // Caso o livro não seja encontrado
         System.out.println("Livro não encontrado na biblioteca: " + titulo);
         return null;
     }
+
+    public void reservarLivro(String tituloLivro, String nomeUsuario) {
+        Livro livro = buscarLivro(tituloLivro);
+        if (livro != null) {
+            livro.adicionarReserva(nomeUsuario);  // Adiciona a reserva ao livro encontrado
+        } else {
+            System.out.println("Livro '" + tituloLivro + "' não encontrado.");
+        }
+    }
+
+    public void cancelarReservaLivro(String tituloLivro, String nomeUsuario) {
+        Livro livro = buscarLivro(tituloLivro);
+        if (livro != null) {
+            livro.removerReserva(nomeUsuario);
+        } else {
+            System.out.println("Livro '" + tituloLivro + "' não encontrado.");
+        }
+    }
+
+    public void retirarLivro(String tituloLivro) {
+        Livro livro = buscarLivro(tituloLivro);
+        if (livro != null) {
+            livro.removerReservaParaEmprestimo();
+        } else {
+            System.out.println("Livro '" + tituloLivro + "' não encontrado.");
+        }
+    }
+
+    public void mostrarReservasDoLivro(String tituloLivro) {
+        Livro livro = buscarLivro(tituloLivro);
+        if (livro != null) {
+            livro.mostrarReservas();
+        } else {
+            System.out.println("Livro '" + tituloLivro + "' não encontrado.");
+        }
+    }
+
+
 }
