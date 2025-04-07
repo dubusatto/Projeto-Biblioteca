@@ -7,14 +7,16 @@ class Livro {
     private String titulo;
     private String autor;
     private int anoPublicacao;
+    private String genero;
     private Queue<Reserva> usuarios;
 
 
     // Construtor
-    public Livro(String tituloLivro, String autorLivro, int anoPublicacaoLivro) {
+    public Livro(String tituloLivro, String autorLivro, int anoPublicacaoLivro, String generoLivro) {
         this.titulo = tituloLivro;
         this.autor = autorLivro;
         this.anoPublicacao = anoPublicacaoLivro;
+        this.genero = generoLivro;
         this.usuarios = new LinkedList<>();  // Inicializa a fila de usuários
     }
 
@@ -27,14 +29,13 @@ class Livro {
     public void adicionarReserva(String nomeUsuario) {
         Reserva novaReserva = new Reserva(nomeUsuario, this.getTitulo());
         usuarios.add(novaReserva);
-        System.out.println(nomeUsuario + " foi adicionado as reservas do livro " + this.getTitulo());
     }
 
     // Remove reserva de um determinado livro pq o primeiro usuário irá emprestá-lo
     public void removerReservaParaEmprestimo() {
         if (!usuarios.isEmpty()) {
             Reserva reservaRemovida = usuarios.poll(); // Remove o primeiro da fila
-            System.out.println(reservaRemovida.getNomeUsuario() + " retirou o livro " + this.getTitulo());
+            System.out.println("\nO livro " + this.getTitulo() + " foi emprestado.");
         } else {
             System.out.println("Não há reservas para o livro " + this.getTitulo());
         }
@@ -47,7 +48,7 @@ class Livro {
             Reserva reserva = iterator.next();
             if (reserva.getNomeUsuario().equals(nomeUsuario)) {
                 iterator.remove(); // Removendo de forma segura
-                System.out.println(nomeUsuario + " teve sua reserva removida para o livro " + this.getTitulo());
+                System.out.println(nomeUsuario + " cancelou sua reserva para o livro " + this.getTitulo());
                 return true; // Retorna imediatamente após remover
             }
         }
@@ -57,8 +58,6 @@ class Livro {
         return false;
     }
 
-
-
     // Mostra todas as reservas de um determinado livro
     public void mostrarReservas() {
         if (usuarios.isEmpty()) { // testa se a fila usuários está vazia
@@ -66,12 +65,28 @@ class Livro {
             return;
         }
         // caso não esteja vazia ele irá as reservas da fila reserva associadas aquele titulo de livro
-        System.out.println("\nReservas para o livro: " + this.titulo);
+        System.out.println("\n=== Consultando reservas === ");
+        System.out.println("Livro: " + this.getTitulo());
         for (Reserva reserva : usuarios) {
             System.out.println("  " + reserva.getNomeUsuario());
         }
     }
+
+    // getters
+
     public String getTitulo() {
-        return this.titulo;
+        return titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public int getAnoPublicacao() {
+        return anoPublicacao;
+    }
+
+    public String getGenero() {
+        return genero;
     }
 }

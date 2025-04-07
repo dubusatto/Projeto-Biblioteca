@@ -1,30 +1,33 @@
+import java.util.Set;
+
 public class Main {
     public static void main(String[] args) {
 
         Biblioteca novaBiblioteca = new Biblioteca();
 
-        novaBiblioteca.adicionarLivro("Musashi 1", "Eiji Yoshikawa", 1584);
-        novaBiblioteca.adicionarLivro("Perspective for Comic Book Artists", "David Chelsea", 1997);
-        novaBiblioteca.adicionarLivro("Frame Perspective vol 2", "Marcos Mateu-Mestre", 2016);
-        novaBiblioteca.adicionarLivro("O contador de histórias", "Dave Grohl", 2021);
-        novaBiblioteca.adicionarLivro("Origem", "Dan Brown", 2017);
-        novaBiblioteca.adicionarLivro("O Silmarilion", "J.R.R. Tolkien", 1977);
-        novaBiblioteca.adicionarLivro("Frame Perspective vol 2", "Marcos Mateu-Mestre", 2016);
-        novaBiblioteca.adicionarLivro("Musashi 2", "Eiji Yoshikawa", 1584);
-        novaBiblioteca.adicionarLivro("Vida", "Keith Richards", 2001);
-        novaBiblioteca.adicionarLivro("Clapton", "Eric Clapton", 2000);
-        novaBiblioteca.adicionarLivro("Guerra Civil", "Stuart Moore", 2010);
-        novaBiblioteca.adicionarLivro("O ator invisível", "Yoshi Oida", 1530);
-        novaBiblioteca.adicionarLivro("Seja Assertivo", "Vera Martins", 2014);
+        // Adicionando livros à biblioteca
+        Livro livroMusashi1 = novaBiblioteca.adicionarLivro("Musashi 1", "Eiji Yoshikawa", 1584, "épico");
+        Livro livroPerspective = novaBiblioteca.adicionarLivro("Perspective for Comic Book Artists", "David Chelsea", 1997, "desenho");
+        Livro livroFrame2 = novaBiblioteca.adicionarLivro("Frame Perspective vol 2", "Marcos Mateu-Mestre", 2016, "desenho");
+        Livro livroOContador = novaBiblioteca.adicionarLivro("O contador de histórias", "Dave Grohl", 2021, "biografia");
+        Livro livroOrigem = novaBiblioteca.adicionarLivro("Origem", "Dan Brown", 2017, "ação");
+        Livro livroOSilmarilion = novaBiblioteca.adicionarLivro("O Silmarilion", "J.R.R. Tolkien", 1977, "fantasia");
+        Livro livroMusashi2 = novaBiblioteca.adicionarLivro("Musashi 2", "Eiji Yoshikawa", 1584, "épico");
+        Livro livroVida = novaBiblioteca.adicionarLivro("Vida", "Keith Richards", 2001, "biografia");
+        Livro livroClapton = novaBiblioteca.adicionarLivro("Clapton", "Eric Clapton", 2000, "biografia");
+        Livro livroGuerraCivil = novaBiblioteca.adicionarLivro("Guerra Civil", "Stuart Moore", 2010, "comic");
+        Livro livroOAtorInvisivel = novaBiblioteca.adicionarLivro("O ator invisível", "Yoshi Oida", 1530, "dramaturgia");
+        Livro livroSejaAssertivo = novaBiblioteca.adicionarLivro("Seja Assertivo", "Vera Martins", 2014, "auto-ajuda");
 
-
-
+        // Removendo um livro da biblioteca
         novaBiblioteca.removerLivro("O Senhor dos Anéis");
+        novaBiblioteca.removerLivro("Seja Assertivo");
 
-
+        // Mostrando os livros adicionados à biblioteca
         novaBiblioteca.buscarLivro("1984");
         novaBiblioteca.buscarLivro("O Senhor dos Anéis");
 
+        // Criando um histórico de navegação para o usuário
         HistoricoDeNavegacao historicoUsuario1 = new HistoricoDeNavegacao();
 
         historicoUsuario1.adicionarNomeLivroNoHistorico("O Senhor dos Anéis");
@@ -33,65 +36,70 @@ public class Main {
 
         historicoUsuario1.mostrarHistorico();
 
-        // Buscar livros
-        Livro livro = novaBiblioteca.buscarLivro("O Silmarilion");  // Não deve encontrar, pois foi removido
-
         // Testando reservas
-        if (livro != null) {
-            livro.adicionarReserva("Usuário1");
-            livro.adicionarReserva("Usuário2");
-            livro.mostrarReservas();
+        if (livroOSilmarilion != null) {
+            livroOSilmarilion.adicionarReserva("Professor Wellington");
+            livroOSilmarilion.adicionarReserva("Eduardo");
+            livroOSilmarilion.adicionarReserva("Ricardo");
+            livroOSilmarilion.adicionarReserva("Isaías");
+            livroOSilmarilion.mostrarReservas();
 
-            livro.removerReserva("Usuário1");
-            livro.mostrarReservas();
+            livroOSilmarilion.removerReserva("Ricardo");
+            livroOSilmarilion.mostrarReservas();
+
+            livroOSilmarilion.removerReservaParaEmprestimo();
+            livroOSilmarilion.mostrarReservas();
+
         }
 
-        // Exemplo de histórico de navegação
-        historicoUsuario1 = new HistoricoDeNavegacao();
-        historicoUsuario1.adicionarNomeLivroNoHistorico("O Senhor dos Anéis");
-        historicoUsuario1.adicionarNomeLivroNoHistorico("1984");
-        historicoUsuario1.mostrarHistorico();
+        // Adicionando recomendações
+        novaBiblioteca.adicionarRecomendacao(livroMusashi1, livroMusashi2);  // Musashi 1 -> Musashi2
+        novaBiblioteca.adicionarRecomendacao(livroMusashi1, livroGuerraCivil);  // Musashi 1 -> Guerra Civil
+        novaBiblioteca.adicionarRecomendacao(livroOSilmarilion, livroMusashi1);
+        novaBiblioteca.adicionarRecomendacao(livroOSilmarilion, livroGuerraCivil);  // O Silmarilion -> Guerra Civil
+        novaBiblioteca.adicionarRecomendacao(livroPerspective, livroFrame2);
+        novaBiblioteca.adicionarRecomendacao(livroPerspective, livroVida);
+        novaBiblioteca.adicionarRecomendacao(livroOContador, livroVida);
+        novaBiblioteca.adicionarRecomendacao(livroOContador, livroClapton);
+        novaBiblioteca.adicionarRecomendacao(livroVida, livroOContador);
+        novaBiblioteca.adicionarRecomendacao(livroVida, livroClapton);
+        novaBiblioteca.adicionarRecomendacao(livroClapton, livroOContador);
+        novaBiblioteca.adicionarRecomendacao(livroClapton, livroVida);
+        novaBiblioteca.adicionarRecomendacao(livroOAtorInvisivel, livroSejaAssertivo);
+        novaBiblioteca.adicionarRecomendacao(livroOAtorInvisivel, livroFrame2);
+        novaBiblioteca.adicionarRecomendacao(livroFrame2, livroPerspective);
+        novaBiblioteca.adicionarRecomendacao(livroFrame2, livroOAtorInvisivel);
+        novaBiblioteca.adicionarRecomendacao(livroSejaAssertivo, livroFrame2);
+        novaBiblioteca.adicionarRecomendacao(livroSejaAssertivo, livroOAtorInvisivel);
+        novaBiblioteca.adicionarRecomendacao(livroGuerraCivil, livroMusashi1);
+        novaBiblioteca.adicionarRecomendacao(livroGuerraCivil, livroMusashi2);
+        novaBiblioteca.adicionarRecomendacao(livroMusashi2, livroGuerraCivil);
+        novaBiblioteca.adicionarRecomendacao(livroMusashi2, livroOSilmarilion);
+        novaBiblioteca.adicionarRecomendacao(livroOrigem, livroVida);
+        novaBiblioteca.adicionarRecomendacao(livroOrigem, livroOContador);
 
-        // Reservando livros para usuários
-        novaBiblioteca.reservarLivro("Musashi 1", "Usuário1");
-        novaBiblioteca.reservarLivro("Musashi 1", "Usuário2");
-        novaBiblioteca.reservarLivro("Perspective for Comic Book Artists", "Usuário3");
+        // Criação de usuários e adição de histórico de leitura para testar recomendações
+        Usuario usuario1 = new Usuario("Eduardo Busatto", 1672); // criação do usuário
 
-        // Mostrando as reservas dos livros
-        novaBiblioteca.mostrarReservasDoLivro("Musashi 1");  // Exibe as reservas para "Musashi 1"
-        novaBiblioteca.mostrarReservasDoLivro("Perspective for Comic Book Artists");  // Exibe as reservas para o outro livro
+        // Adicionando livros ao histórico do usuário
+        usuario1.adicionarAoHistorico(livroMusashi1);
+        usuario1.adicionarAoHistorico(livroOSilmarilion);
+        usuario1.adicionarAoHistorico(livroOrigem);
 
-        // Cancelando uma reserva de um usuário
-        novaBiblioteca.cancelarReservaLivro("Musashi 1", "Usuário1");
+        // Chamando o método para recomendar livros com base no histórico de leitura do usuário
+        usuario1.mostrarRecomendacoesPorHistorico(novaBiblioteca);
 
-        // Mostrando as reservas após o cancelamento
-        novaBiblioteca.mostrarReservasDoLivro("Musashi 1");
+        Usuario usuario2 = new Usuario("Davi Dias", 1673); // criação do usuário
 
-        // Retirando um livro para emprestimo (remove o primeiro da fila)
-        novaBiblioteca.retirarLivro("Musashi 1");
+        // Adicionando livros ao histórico do usuário
+        usuario2.adicionarAoHistorico(livroOrigem);
+        usuario2.adicionarAoHistorico(livroFrame2);
+        usuario2.adicionarAoHistorico(livroGuerraCivil);
 
-        // Mostrando as reservas após a retirada do livro
-        novaBiblioteca.mostrarReservasDoLivro("Musashi 1");
+        // Chamando o método para recomendar livros com base no histórico de leitura do usuário
+        usuario2.mostrarRecomendacoesPorHistorico(novaBiblioteca);
+
+
     }
 }
 
-
-
-
-        /*
-
-        Livro filaDeEmprestimos = new FilaDeEmprestimo();
-
-        filaDeEmprestimos.mostrarReservas("1984");
-        filaDeEmprestimos.adicionarUsuario("Eduardo", "1984");
-        filaDeEmprestimos.adicionarUsuario("Maria", "Pride and Prejudice");
-        filaDeEmprestimos.adicionarUsuario("Paulo", "1984");
-        filaDeEmprestimos.adicionarUsuario("Pedro", "1984");
-        filaDeEmprestimos.adicionarUsuario("Ana", "Pride and Prejudice");
-        filaDeEmprestimos.mostrarReservas("1984");
-        filaDeEmprestimos.mostrarReservas("Pride and Prejudice");
-        filaDeEmprestimos.mostrarReservas("O Senhor dos Anéis: ");
-    }
-}
-
-         */
