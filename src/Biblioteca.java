@@ -81,4 +81,7 @@ class Biblioteca {
     public Set<Livro> obterRecomendacoes(Livro livro) {
         return recomendacoes.getOrDefault(livro, new HashSet<>());
     }
+    public LinkedList<Livro> getLivros() {
+        return livros;
+    }
 }

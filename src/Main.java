@@ -99,7 +99,24 @@ public class Main {
         // Chamando o método para recomendar livros com base no histórico de leitura do usuário
         usuario2.mostrarRecomendacoesPorHistorico(novaBiblioteca);
 
+        // Testar a inserção de livros na árvore
+        ArvoreDeLivro arvoreDeLivros = new ArvoreDeLivro();
+        // Percorre a LinkedList que os livros foram armazenados na classe Biblioteca para ir adicionando na árvore
+        for (Livro livro : novaBiblioteca.getLivros()) {
+            arvoreDeLivros.inserirNoDeLivro(livro);
+        }
+        // Mostrar a árvore pra ver se foi tudo certinho
+        arvoreDeLivros.mostrar();
 
+        // Testar busca
+        arvoreDeLivros.buscarNoDeLivro(livroFrame2);
+
+        // Testar remoção
+        arvoreDeLivros.removerNoDeLivro(livroOContador); // Remoção do livro O contador de histórias
+
+        arvoreDeLivros.mostrar(); // Mostrando a árvore agora sem o livro O contador de histórias
+
+        arvoreDeLivros.buscarNoDeLivro(livroOContador); // Buscando o livro que foi removido
     }
 }
 
